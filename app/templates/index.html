@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index</title>
+</head>
+
+<style>
+    .mainContainer{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .cardContainer{
+        display: flex;
+        flex-direction: column;
+        border: 2px black solid;
+        border-radius: 6px;
+        width: 20%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        margin-bottom: 20px; 
+    }
+    .imagen{
+        width: 70%;
+        margin-bottom: 10px; 
+    }
+    .infoSpan{
+        margin-bottom: 3px;
+    }
+    .containerBotones{
+        display: flex;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px; 
+    }
+    .containerBotonEliminar{
+        width: 50%;
+    }
+    .containerBotonDetallado{
+        width: 50%;
+    }
+    .botonEliminar{
+        background-color: red;
+        color: white;
+        border-radius: 6px;
+    }
+    .botonDetallado{
+        background-color: yellow;
+        color: black;
+        border-radius: 6px;
+    }
+    .containerHeader{
+        width: 100%;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+    .titulo{
+        width: 50%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+    .linkbotonAgregar{
+        border-radius: 6px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+    .botonAgregar{
+        background-color: green;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="containerHeader">
+        <h1 class="titulo">Equipos de futbol</h1>
+        <a class="linkbotonAgregar" href="http://127.0.0.1:8000/agregar">
+            <button class="botonAgregar">Agregar</button>
+        </a>
+    </div>
+	<br>
+    <div class="mainContainer">
+        {% for record in partner_records %}
+        <div class="cardContainer">
+            <img class="imagen" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/800px-Soccerball.svg.png">
+            <span class="infoSpan"><span style="font-weight: bold;">Nombre:</span> {{ record.name }}</span>
+            <span class="infoSpan"><span style="font-weight: bold;">Precio:</span> ${{ record.street }}</span>
+            <span class="infoSpan"><span style="font-weight: bold;">Existencia:</span> {{ record.street2 }}</span>
+            <span class="infoSpan"><span style="font-weight: bold;">Descripcion:</span> {{ record.zip }}</span>
+        
+            <div class="containerBotones">
+                <form class="containerBotonEliminar" action="http://127.0.0.1:8000/eliminar/{{ record.id }}" method="POST">
+                    {% csrf_token %}
+                    <button class="botonEliminar" type="submit">Eliminar</button>
+                </form>
+                <form class="containerBotonDetallado" action="http://127.0.0.1:8000/detallado/{{ record.id }}" method="POST">
+                    {% csrf_token %}
+                    <button class="botonDetallado" type="submit">Detalle</button>
+                </form>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Actualizar nombre</title>
+</head>
+<body>
+	<h1>Actualizar equipo</h1>
+    {% for record in partner_records %}
+        <form method="POST" action="http://127.0.0.1:8000/update/" id="my-form">
+            {% csrf_token %}
+            <label for="name">Nuevo nombre:</label>
+            <input type="text" id="name" name="name" value="{{ record.name }}" autocomplete="off"></input>
+            <button type="submit">Actualizar</button>
+        </form>
+    
+        <script>
+            document.getElementById("my-form").onsubmit = function() {
+                var name = document.getElementById("name").value;
+                this.action = "http://127.0.0.1:8000/update/{{ record.id }}/" + name;
+                return true;
+            }
+        </script>
+    {% endfor %}
+</body>
+</html>

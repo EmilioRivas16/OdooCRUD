@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar</title>
+</head>
+
+<style>
+    .containerForm{
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+    }
+    input{
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    label{
+        font-size: 20px;
+    }
+    button{
+        width: 20%;
+        height: 30px;
+        align-self: center;
+        background-color: blue;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    {% for record in partner_records %}
+        <form class="containerForm" method="POST" action="http://127.0.0.1:8000/ejecutar_modificar/" id="form_agregar">
+            {% csrf_token %}
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" autocomplete="off" value="{{ record.name }}">
+            <label for="precio">Precio:</label>
+            <input type="text" id="precio" name="precio" autocomplete="off" value="{{ record.street }}">
+            <label for="existencia">Existencia:</label>
+            <input type="text" id="existencia" name="existencia" autocomplete="off" value="{{ record.street2 }}">
+            <label for="descripcion">Descripcion:</label>
+            <input type="text" id="descripcion" name="descripcion" autocomplete="off" value="{{ record.zip }}">
+            <button type="submit">Modificar</button>
+        </form>
+
+        <script>
+            document.getElementById("form_agregar").onsubmit = function() {
+                var name = document.getElementById("name").value;
+                var precio = document.getElementById("precio").value;
+                var existencia = document.getElementById("existencia").value;
+                var descripcion = document.getElementById("descripcion").value;
+                this.action = "http://127.0.0.1:8000/ejecutar_modificar/{{ record.id }}/" + name + "/" + precio + "/" + existencia + "/" + descripcion;
+                return true;
+            }
+        </script>
+    {% endfor %}
+</body>
+</html>

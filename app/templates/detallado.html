@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detallado</title>
+</head>
+
+<style>
+    .mainContainer{
+        display: flex;
+        width: 100%;
+    }
+    .imageContainer{
+        width: 50%;
+        text-align: center;
+    }
+    .textContainer{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        padding-top: 3rem;
+        padding-left: 3rem;
+        font-size: 20px;
+    }
+    .imagen{
+        width: 70%;
+    }
+    .containerBotones{
+        display: flex;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px; 
+    }
+    .containerBotonEliminar{
+        width: 25%;
+    }
+    .containerBotonModificar{
+        width: 25%;
+    }
+    .botonEliminar{
+        background-color: red;
+        color: white;
+        border-radius: 6px;
+    }
+    .botonModificar{
+        background-color: blue;
+        color: white;
+        border-radius: 6px;
+    }
+    .infoSpan{
+        margin-bottom: 15px;
+    }
+</style>
+
+<body>
+    {% for record in partner_records %}
+        <div class="mainContainer">
+            <div class="imageContainer">
+                <img class="imagen" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/800px-Soccerball.svg.png">
+            </div>
+            <div class="textContainer">
+                <span class="infoSpan"><span style="font-weight: bold;">Nombre:</span> {{ record.name }}</span>
+                <span class="infoSpan"><span style="font-weight: bold;">Precio:</span> ${{ record.street }}</span>
+                <span class="infoSpan"><span style="font-weight: bold;">Existencia:</span> {{ record.street2 }}</span>
+                <span class="infoSpan"><span style="font-weight: bold;">Descripción:</span> {{ record.zip }}</span>
+                <div class="containerBotones">
+                    <form class="containerBotonEliminar" action="http://127.0.0.1:8000/eliminar/{{ record.id }}" method="POST">
+                        {% csrf_token %}
+                        <button class="botonEliminar" type="submit">Eliminar</button>
+                    </form>
+                    <form class="containerBotonModificar" action="http://127.0.0.1:8000/modificar/{{ record.id }}" method="POST">
+                        {% csrf_token %}
+                        <button class="botonModificar" type="submit">Modificar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>
